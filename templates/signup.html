@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        body{
+            height: fit-content;       
+            width: fit-content;
+            margin: auto;
+            margin-top: 100px;
+            box-sizing: border-box;
+            background: #020024;
+            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+        }
+        h1{
+            text-align: center;
+        }
+        .container{
+            background-color: white;
+            color:  black;
+            height: fit-content;
+            width: fit-content;
+            padding: 20px;
+            border-radius: 10px;
+            border:2px solid black ;
+        }
+        .container form input{
+            padding:5px;
+            margin:5px;
+            border:1px solid black;
+            border-radius: 5px;
+        }
+        #email,#name{
+            margin-right: 27px;
+        }
+        #password{
+            margin-right: 3px;
+        }
+        button{
+            height: fit-content;
+            width: fit-content;
+            background-color:lightblue;
+            text-align: center;
+            display: block;
+            padding: 5px 50px;
+            margin: 15px auto;
+        }
+        button:focus{
+            background-color: lightseagreen;
+        }
+        /* initial position for pages coming FROM signin */
+.page-wrapper {
+    transform: translateX(100%);  /* slide in from right */
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.page-wrapper.slide-in {
+    transform: translateX(0);     /* move to center */
+    opacity: 1;
+}
+
+/* when clicking SIGNIN → slide signup page to RIGHT */
+.slide-right {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+
+        
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+    <div class="container">
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+        <form method="POST">
+            {% csrf_token %}
+            <h1>Register</h1>
+            <label for="" id="name">Name:</label>
+            <input type="text" name="name" required> <br>
+            <label for="" id="email">Email:</label>
+            <input type="email" name="email" id="" required> <br>
+            <label for="">Username:</label>
+            <input type="text" name="username" id="" required> <br>
+            <label for="" id="password">Password:</label>
+            <input type="password" name="password" required> <br>
+            <button id="loginBtn" type="submit">submit</button>
+        </form>
+        <p>already has account : <a href="{% url 'signin' %}" id="signinLink">Signin</a>
+</p>
+    </div>
+    </div>
+    <script>
+window.addEventListener("load", function() {
+    document.querySelector(".page-wrapper").classList.add("slide-in");
+});
+
+document.getElementById("signinLink").addEventListener("click", function(e) {
+    e.preventDefault();
+
+    document.querySelector(".page-wrapper").classList.add("slide-right");
+
+    setTimeout(() => window.location.href = this.href, 500);
+});
+</script>
+
+
+
+</body>
+</html>
