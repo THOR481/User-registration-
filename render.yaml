@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: user-registration
+    env: python
+    plan: free
+    buildCommand: "./render-build.sh"
+    startCommand: "gunicorn user_registration.wsgi"
