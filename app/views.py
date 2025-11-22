@@ -48,11 +48,12 @@ def send_otp(email):
     resend.api_key = os.getenv("RESEND_API_KEY")
 
     resend.Emails.send({
-        "from": "User Registration <onboarding@resend.dev>",
-        "to": email,
-        "subject": "Your Login OTP",
-        "html": f"<p>Your OTP is <strong>{otp}</strong></p>",
+    "from": "noreply@resend.dev",
+    "to": email,
+    "subject": "Your Login OTP",
+    "html": f"<p>Your OTP is <strong>{otp}</strong></p>",
     })
+
 
     return otp
 
