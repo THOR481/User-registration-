@@ -39,9 +39,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    '.railway.app',
-]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
+
+
 
 CSRF_TRUSTED_ORIGINS = [
     'https://web-production-f5136.up.railway.app',
