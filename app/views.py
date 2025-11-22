@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 import random
 from .models import *
 import os
+import resend
 # Create your views here.
 def signup(request):
 
@@ -44,12 +45,15 @@ def signup(request):
 
 def send_otp(email):
     otp=str(random.randint(100000,111111))        
-    send_mail(
-        subject='your login otp',
-        message=f'your otp code : {otp}',
-        from_email=os.getenv('EMAIL_HOST_USER'),
-        recipient_list=[email]
-    )
+    resend.api_key = os.getenv("RESEND_API_KEY")
+
+    resend.Emails.send({
+        "from": "User Registration <onboarding@resend.dev>",
+        "to": email,
+        "subject": "Your Login OTP",
+        "html": f"<p>Your OTP is <strong>{otp}</strong></p>",
+    })
+
     return otp
 
 def verify_otp(request):
